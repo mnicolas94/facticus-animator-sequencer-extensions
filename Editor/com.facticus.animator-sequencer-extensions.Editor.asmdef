@@ -2,7 +2,9 @@
     "name": "com.facticus.animator-sequencer-extensions.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:bf051d06684046940a00d45764b1d05f"
+        "GUID:bf051d06684046940a00d45764b1d05f",
+        "GUID:375a2b2d1d3bd46ba98f8cd67b6afde6",
+        "GUID:2c5d3b89229664737a7a932419b9186c"
     ],
     "includePlatforms": [
         "Editor"
