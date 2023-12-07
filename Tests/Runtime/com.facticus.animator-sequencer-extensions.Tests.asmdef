@@ -1,7 +1,7 @@
 {
-  "name": "com.{{COMPANY}}.{{REPOSITORY_NAME}}.Tests",
+  "name": "com.facticus.animator-sequencer-extensions.Tests",
   "references": [
-    "Unity.com.{{COMPANY}}.{{REPOSITORY_NAME}}"
+    "Unity.com.facticus.animator-sequencer-extensions"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

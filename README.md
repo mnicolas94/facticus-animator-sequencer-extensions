@@ -1,6 +1,6 @@
-# {{FRIENDLY_NAME}}
+# Animator Sequencer Extensions
 
-{{DESCRIPTION}}
+
 
 ## License
 
