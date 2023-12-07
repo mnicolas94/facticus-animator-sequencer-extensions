@@ -14,7 +14,7 @@ namespace AnimatorSequencerExtensions.Actions
         public override string DisplayName => $"TMP Text {typeof(T).Name}";
 
         [SerializeField] protected T _initialValue;
-        [SerializeField] protected SerializableCallback<T> _targetValueGetter;
+        [SerializeField] protected SerializableValueCallback<T> _targetValueGetter;
 
         protected TMP_Text _tmpTextComponent;
         protected string _previousText;
@@ -60,7 +60,7 @@ namespace AnimatorSequencerExtensions.Actions
             var tween = DOTween.To(
                 () => _initialValue,
                 val => _tmpTextComponent.text = $"{val}",
-                _targetValueGetter.Invoke(),
+                _targetValueGetter.Value,
                 duration);
             return tween;
         }
@@ -74,7 +74,7 @@ namespace AnimatorSequencerExtensions.Actions
             var tween = DOTween.To(
                 () => _initialValue,
                 val => _tmpTextComponent.text = $"{val}",
-                _targetValueGetter.Invoke(),
+                _targetValueGetter.Value,
                 duration);
             return tween;
         }
@@ -88,7 +88,7 @@ namespace AnimatorSequencerExtensions.Actions
             var tween = DOTween.To(
                 () => _initialValue,
                 val => _tmpTextComponent.text = $"{val}",
-                _targetValueGetter.Invoke(),
+                _targetValueGetter.Value,
                 duration);
             return tween;
         }

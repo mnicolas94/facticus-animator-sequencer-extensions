@@ -1,15 +1,15 @@
 ﻿using System;
 using BrunoMikoski.AnimationSequencer;
 using DG.Tweening;
-using SerializableCallback;
 using UnityEngine;
+using SerializableCallback;
 
 namespace AnimatorSequencerExtensions.Actions
 {
     [Serializable]
     public class RepeatSoundAction : DOTweenActionBase
     {
-        [SerializeField] private SerializableCallback<int> _timesToPlayCallback;
+        [SerializeField] private SerializableValueCallback<int> _timesToPlayCallback;
         [SerializeField] private float _repeatPeriod;
         
         public override Type TargetComponentType => typeof(AudioSource);
@@ -29,7 +29,7 @@ namespace AnimatorSequencerExtensions.Actions
                 }
             }
 
-            var timesToPlay = _timesToPlayCallback.Invoke() + 1;  // at least 1, avoid 0, play early
+            var timesToPlay = _timesToPlayCallback.Value + 1;  // at least 1, avoid 0, play early
             var periodByTimesToPlay = duration / timesToPlay;
             var period = Mathf.Max(periodByTimesToPlay, _repeatPeriod);
             var lastTimePlayed = 0f;

@@ -1,6 +1,7 @@
 ﻿using System;
 using BrunoMikoski.AnimationSequencer;
 using DG.Tweening;
+using SerializableCallback;
 using UnityEngine;
 
 namespace AnimatorSequencerExtensions.Actions
@@ -12,7 +13,7 @@ namespace AnimatorSequencerExtensions.Actions
 
         public override Type TargetComponentType => typeof(Renderer);
 
-        [SerializeField] private float _value;
+        [SerializeField] private SerializableValueCallback<float> _value;
         [SerializeField] private string _variableName;
         
         private float? _previousState;
@@ -29,7 +30,7 @@ namespace AnimatorSequencerExtensions.Actions
             var tweener = DOTween.To(
                 () => material.GetFloat(_variableName),
                 value => material.SetFloat(_variableName, value),
-                _value,
+                _value.Value,
                 duration
             );
 

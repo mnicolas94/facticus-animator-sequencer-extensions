@@ -481,30 +481,7 @@ MonoBehaviour:
         loopCount: 0
         loopType: 0
         actions:
-        - rid: 1904655576912101379
-    - rid: 1904655576912101379
-      type: {class: TMPTextStringAction, ns: AnimatorSequencerExtensions.Actions, asm: com.facticus.animator-sequencer-extensions}
-      data:
-        direction: 0
-        ease:
-          ease: 7
-          curve:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 2
-            m_PostInfinity: 2
-            m_RotationOrder: 4
-        isRelative: 0
-        _initialValue: abcdefghijklmnopqrstu
-        _targetValueGetter:
-          _target: {fileID: 0}
-          _methodName: get_name
-          _args: []
-          _dynamic: 0
-          _typeName: SerializableCallback.SerializableCallback`1[[System.String,
-            mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
-            Siccity.SerializableCallback, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          dirty: 0
+        - rid: 1904655576912101384
     - rid: 1904655576912101380
       type: {class: EventValueStep, ns: AnimatorSequencerExtensions.Steps, asm: com.facticus.animator-sequencer-extensions}
       data:
@@ -523,6 +500,56 @@ MonoBehaviour:
         _valueEvent:
           m_PersistentCalls:
             m_Calls: []
+        _from:
+          _mode: 0
+          _value: 3.75
+          _callback:
+            _target: {fileID: 0}
+            _methodName: 
+            _args: []
+            _dynamic: 0
+            _typeName: SerializableCallback.SerializableCallback`1[[System.Single,
+              mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+              Siccity.SerializableCallback, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+            dirty: 0
+        _to:
+          _mode: 0
+          _value: 0
+          _callback:
+            _target: {fileID: 0}
+            _methodName: 
+            _args: []
+            _dynamic: 0
+            _typeName: SerializableCallback.SerializableCallback`1[[System.Single,
+              mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+              Siccity.SerializableCallback, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+            dirty: 0
+    - rid: 1904655576912101384
+      type: {class: TMPTextIntAction, ns: AnimatorSequencerExtensions.Actions, asm: com.facticus.animator-sequencer-extensions}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        _initialValue: 0
+        _targetValueGetter:
+          _mode: 0
+          _value: 1292
+          _callback:
+            _target: {fileID: 0}
+            _methodName: 
+            _args: []
+            _dynamic: 0
+            _typeName: SerializableCallback.SerializableCallback`1[[System.Int32,
+              mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]],
+              Siccity.SerializableCallback, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+            dirty: 0
 --- !u!4 &1034246308
 Transform:
   m_ObjectHideFlags: 0
@@ -548,6 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1676124858}
   - component: {fileID: 1676124857}
+  - component: {fileID: 1676124859}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -622,6 +650,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1676124859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676124856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53550646c472456cbdb73229c9b8137e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _from:
+    _mode: 0
+    _value: 0
+    _callback:
+      _target: {fileID: 0}
+      _methodName: 
+      _args: []
+      _dynamic: 0
+      _typeName: SerializableCallback.SerializableCallback`1[[System.Single, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Siccity.SerializableCallback,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      dirty: 0
+  _to:
+    _mode: 0
+    _value: 0
+    _callback:
+      _target: {fileID: 0}
+      _methodName: 
+      _args: []
+      _dynamic: 0
+      _typeName: SerializableCallback.SerializableCallback`1[[System.Single, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Siccity.SerializableCallback,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      dirty: 0
 --- !u!1 &1781260404
 GameObject:
   m_ObjectHideFlags: 0
