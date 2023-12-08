@@ -5,7 +5,9 @@
   "description": "",
   "unity": "2022.3",
   "unityRelease": "",
-  "dependencies": {},
+  "dependencies": {
+    "com.brunomikoski.animationsequencer": "0.5.4"
+  },
   "keywords": [],
   "author": {
     "name": "Facticus",

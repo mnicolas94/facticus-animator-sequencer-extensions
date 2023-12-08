@@ -28,7 +28,16 @@ namespace AnimatorSequencerExtensions.Actions
             }
 
             _previousValue = _target.color.a;
-            var tween = _target.DOFade(_alpha, duration);
+            var tween = DOTween.To(
+                () => _target.color.a,
+                value =>
+                    {
+                        var color = _target.color;
+                        color.a = value;
+                        _target.color = color;
+                    },
+                _alpha,
+                duration);
             return tween;
         }
 
