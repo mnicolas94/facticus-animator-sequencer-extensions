@@ -23,12 +23,20 @@ namespace AnimatorSequencerExtensions.Steps
         [SerializeField] private Vector3 _position;
         [SerializeField] private Vector3 _eulerAngles;
         [SerializeField] private Vector3 _scale = Vector3.one;
-
         [SerializeField] private Vector2 _anchorMin =  new Vector2(0.5f, 0.5f);
         [SerializeField] private Vector2 _anchorMax =  new Vector2(0.5f, 0.5f);
         [SerializeField] private Vector2 _anchoredPosition;
         [SerializeField] private Vector2 _sizeDelta;
         [SerializeField] private Vector2 _pivot = new Vector2(0.5f, 0.5f);
+        
+        [SerializeField] private bool _tweenPosition = true;
+        [SerializeField] private bool _tweenEulerAngles = true;
+        [SerializeField] private bool _tweenScale = true;
+        [SerializeField] private bool _tweenAnchorMin = true;
+        [SerializeField] private bool _tweenAnchorMax = true;
+        [SerializeField] private bool _tweenAnchoredPosition = true;
+        [SerializeField] private bool _tweenSizeDelta = true;
+        [SerializeField] private bool _tweenPivot = true;
 
         private Vector3 _originalPosition;
         private Vector3 _originalEulerAngles;
@@ -38,12 +46,25 @@ namespace AnimatorSequencerExtensions.Steps
         private Vector2 _originalAnchoredPosition;
         private Vector2 _originalSizeDelta;
         private Vector2 _originalPivot;
+
+        private Tweener GetPositionTween => _useLocal
+            ? DOTween.To(() => _targetRectTransform.localPosition, value => _targetRectTransform.localPosition = value, _position, _duration)
+            : DOTween.To(() => _targetRectTransform.position, value => _targetRectTransform.position = value, _position, _duration);
+        private Tweener GetEulerAnglesTween => _useLocal
+            ? DOTween.To(() => _targetRectTransform.localEulerAngles, value => _targetRectTransform.localEulerAngles = value, _eulerAngles, _duration)
+            : DOTween.To(() => _targetRectTransform.eulerAngles, value => _targetRectTransform.eulerAngles = value, _eulerAngles, _duration);
+        private Tweener GetScaleTween => DOTween.To(() => _targetRectTransform.localScale, value => _targetRectTransform.localScale = value, _scale, _duration);
+        private Tweener GetAnchorMinTween => DOTween.To(() => _targetRectTransform.anchorMin, value => _targetRectTransform.anchorMin = value, _anchorMin, _duration);
+        private Tweener GetAnchorMaxTween => DOTween.To(() => _targetRectTransform.anchorMax, value => _targetRectTransform.anchorMax = value, _anchorMax, _duration);
+        private Tweener GetAnchoredPositionTween => DOTween.To(() => _targetRectTransform.anchoredPosition, value => _targetRectTransform.anchoredPosition = value, _anchoredPosition, _duration);
+        private Tweener GetSizeDeltaTween => DOTween.To(() => _targetRectTransform.sizeDelta, value => _targetRectTransform.sizeDelta = value, _sizeDelta, _duration);
+        private Tweener GetPivotTween => DOTween.To(() => _targetRectTransform.pivot, value => _targetRectTransform.pivot = value, _pivot, _duration);
         
         public override void AddTweenToSequence(Sequence animationSequence)
         {
             Sequence sequence = DOTween.Sequence();
             sequence.SetDelay(Delay);
-
+            
             // store original values
             _originalPosition = _useLocal ? _targetRectTransform.localPosition : _targetRectTransform.position;
             _originalEulerAngles = _useLocal ? _targetRectTransform.localEulerAngles : _targetRectTransform.eulerAngles;
@@ -54,65 +75,32 @@ namespace AnimatorSequencerExtensions.Steps
             _originalSizeDelta = _targetRectTransform.sizeDelta;
             _originalPivot = _targetRectTransform.pivot;
             
-            // create tweens
-            Tweener positionTween = null;
-            Tweener eulerAnglesTween = null;
-            if (_useLocal)
-            {
-                positionTween = DOTween.To(() => _targetRectTransform.localPosition, value => _targetRectTransform.localPosition = value, _position, _duration);
-                eulerAnglesTween = DOTween.To(() => _targetRectTransform.localEulerAngles, value => _targetRectTransform.localEulerAngles = value, _eulerAngles, _duration);
-            }
-            else
-            {
-                positionTween = DOTween.To(() => _targetRectTransform.position, value => _targetRectTransform.position = value, _position, _duration);
-                eulerAnglesTween = DOTween.To(() => _targetRectTransform.eulerAngles, value => _targetRectTransform.eulerAngles = value, _eulerAngles, _duration);
-            }
+            // setup tweens
+            if (_tweenPosition) SetupTween(GetPositionTween, sequence);
+            if (_tweenEulerAngles) SetupTween(GetEulerAnglesTween, sequence);
+            if (_tweenScale) SetupTween(GetScaleTween, sequence);
+            if (_tweenAnchorMin) SetupTween(GetAnchorMinTween, sequence);
+            if (_tweenAnchorMax) SetupTween(GetAnchorMaxTween, sequence);
+            if (_tweenAnchoredPosition) SetupTween(GetAnchoredPositionTween, sequence);
+            if (_tweenSizeDelta) SetupTween(GetSizeDeltaTween, sequence);
+            if (_tweenPivot) SetupTween(GetPivotTween, sequence);
             
-            var scaleTween = DOTween.To(() => _targetRectTransform.localScale, value => _targetRectTransform.localScale = value, _scale, _duration);
-            var anchorMinTween = DOTween.To(() => _targetRectTransform.anchorMin, value => _targetRectTransform.anchorMin = value, _anchorMin, _duration);
-            var anchorMaxTween = DOTween.To(() => _targetRectTransform.anchorMax, value => _targetRectTransform.anchorMax = value, _anchorMax, _duration);
-            var anchoredPositionTween = DOTween.To(() => _targetRectTransform.anchoredPosition, value => _targetRectTransform.anchoredPosition = value, _anchoredPosition, _duration);
-            var sizeDeltaTween = DOTween.To(() => _targetRectTransform.sizeDelta, value => _targetRectTransform.sizeDelta = value, _sizeDelta, _duration);
-            var pivotTween = DOTween.To(() => _targetRectTransform.pivot, value => _targetRectTransform.pivot = value, _pivot, _duration);
-
-            // set tweens' direction
-            if (_direction == DOTweenActionBase.AnimationDirection.From)
-            {
-                positionTween.From(_isRelative);
-                eulerAnglesTween.From(_isRelative);
-                scaleTween.From(_isRelative);
-                anchorMinTween.From(_isRelative);
-                anchorMaxTween.From(_isRelative);
-                anchoredPositionTween.From(_isRelative);
-                sizeDeltaTween.From(_isRelative);
-                pivotTween.From(_isRelative);
-            }
-            
-            // set whether is relative or not
-            positionTween.SetRelative(_isRelative);
-            eulerAnglesTween.SetRelative(_isRelative);
-            scaleTween.SetRelative(_isRelative);
-            anchorMinTween.SetRelative(_isRelative);
-            anchorMaxTween.SetRelative(_isRelative);
-            anchoredPositionTween.SetRelative(_isRelative);
-            sizeDeltaTween.SetRelative(_isRelative);
-            pivotTween.SetRelative(_isRelative);
-            
-            // join tweens to sequencce
-            sequence.Join(positionTween);
-            sequence.Join(eulerAnglesTween);
-            sequence.Join(scaleTween);
-            sequence.Join(anchorMinTween);
-            sequence.Join(anchorMaxTween);
-            sequence.Join(anchoredPositionTween);
-            sequence.Join(sizeDeltaTween);
-            sequence.Join(pivotTween);
-
-            sequence.SetEase(_ease);
             if (FlowType == FlowType.Join)
                 animationSequence.Join(sequence);
             else
                 animationSequence.Append(sequence);
+        }
+
+        private void SetupTween(Tweener tween, Sequence sequence)
+        {
+            if (_direction == DOTweenActionBase.AnimationDirection.From)
+            {
+                tween.From(_isRelative);
+            }
+
+            tween.SetRelative(_isRelative);
+            tween.SetEase(_ease);
+            sequence.Join(tween);
         }
 
         public override void ResetToInitialState()
@@ -155,20 +143,46 @@ namespace AnimatorSequencerExtensions.Steps
             
             if (_useLocal)
             {
-                _position = _targetRectTransform.localPosition;
-                _eulerAngles = _targetRectTransform.localEulerAngles;
+                if (_tweenPosition) _position = _targetRectTransform.localPosition;
+                if (_tweenEulerAngles) _eulerAngles = _targetRectTransform.localEulerAngles;
             }
             else
             {
-                _position = _targetRectTransform.position;
-                _eulerAngles = _targetRectTransform.eulerAngles;
+                if (_tweenPosition) _position = _targetRectTransform.position;
+                if (_tweenEulerAngles) _eulerAngles = _targetRectTransform.eulerAngles;
             }
-            _scale = _targetRectTransform.localScale;
-            _anchorMin = _targetRectTransform.anchorMin;
-            _anchorMax = _targetRectTransform.anchorMax;
-            _anchoredPosition = _targetRectTransform.anchoredPosition;
-            _sizeDelta = _targetRectTransform.sizeDelta;
-            _pivot = _targetRectTransform.pivot;
+            if (_tweenScale) _scale = _targetRectTransform.localScale;
+            if (_tweenAnchorMin) _anchorMin = _targetRectTransform.anchorMin;
+            if (_tweenAnchorMax) _anchorMax = _targetRectTransform.anchorMax;
+            if (_tweenAnchoredPosition) _anchoredPosition = _targetRectTransform.anchoredPosition;
+            if (_tweenSizeDelta) _sizeDelta = _targetRectTransform.sizeDelta;
+            if (_tweenPivot) _pivot = _targetRectTransform.pivot;
+        }
+        
+        public void SetCurrentValues()
+        {
+            if (_targetRectTransform == null)
+            {
+                Debug.LogWarning("Target Rect Transform is null");
+                return;
+            }
+            
+            if (_useLocal)
+            {
+                if (_tweenPosition) _targetRectTransform.localPosition = _position;
+                if (_tweenEulerAngles) _targetRectTransform.localEulerAngles = _eulerAngles;
+            }
+            else
+            {
+                if (_tweenPosition) _targetRectTransform.position = _position;
+                if (_tweenEulerAngles) _targetRectTransform.eulerAngles = _eulerAngles;
+            }
+            if (_tweenScale) _targetRectTransform.localScale = _scale;
+            if (_tweenAnchorMin) _targetRectTransform.anchorMin = _anchorMin;
+            if (_tweenAnchorMax) _targetRectTransform.anchorMax = _anchorMax;
+            if (_tweenAnchoredPosition) _targetRectTransform.anchoredPosition = _anchoredPosition;
+            if (_tweenSizeDelta) _targetRectTransform.sizeDelta = _sizeDelta;
+            if (_tweenPivot) _targetRectTransform.pivot = _pivot;
         }
     }
 }

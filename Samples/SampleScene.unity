@@ -551,8 +551,18 @@ MonoBehaviour:
       data:
         delay: 0
         flowType: 0
-        _duration: 0
         _targetRectTransform: {fileID: 65452642}
+        _duration: 0
+        _ease:
+          ease: 22
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _direction: 0
+        _isRelative: 0
         _useLocal: 1
         _position: {x: -661.05005, y: 0, z: 0}
         _eulerAngles: {x: -0, y: 0, z: 0}
@@ -562,14 +572,59 @@ MonoBehaviour:
         _anchoredPosition: {x: 0, y: 0}
         _sizeDelta: {x: 0, y: 0}
         _pivot: {x: 0, y: 0.5}
+        _tweenPosition: 0
+        _tweenEulerAngles: 0
+        _tweenScale: 0
+        _tweenAnchorMin: 1
+        _tweenAnchorMax: 1
+        _tweenAnchoredPosition: 0
+        _tweenSizeDelta: 0
+        _tweenPivot: 0
     - rid: 1904655576912101389
       type: {class: RectTransformInterpolationStep, ns: AnimatorSequencerExtensions.Steps, asm: com.facticus.animator-sequencer-extensions}
       data:
         delay: 0
         flowType: 0
-        _duration: 1
         _targetRectTransform: {fileID: 65452642}
-        _useLocal: 0
+        _duration: 1
+        _ease:
+          ease: 27
+          curve:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 1.3880651
+              outSlope: 1.3880651
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0.33333334
+            - serializedVersion: 3
+              time: 0.8263632
+              value: 1.147046
+              inSlope: -0.064727925
+              outSlope: -0.064727925
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0.33333334
+              outWeight: 0.3974976
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: -0.8468595
+              outSlope: -0.8468595
+              tangentMode: 34
+              weightedMode: 0
+              inWeight: 0.33333334
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        _direction: 0
+        _isRelative: 0
+        _useLocal: 1
         _position: {x: 0, y: 248, z: 0}
         _eulerAngles: {x: -0, y: 0, z: 0}
         _scale: {x: 1, y: 1, z: 1}
@@ -578,6 +633,14 @@ MonoBehaviour:
         _anchoredPosition: {x: 0, y: 0}
         _sizeDelta: {x: 0, y: 0}
         _pivot: {x: 0, y: 0.5}
+        _tweenPosition: 0
+        _tweenEulerAngles: 0
+        _tweenScale: 0
+        _tweenAnchorMin: 1
+        _tweenAnchorMax: 1
+        _tweenAnchoredPosition: 0
+        _tweenSizeDelta: 0
+        _tweenPivot: 0
 --- !u!4 &1034246308
 Transform:
   m_ObjectHideFlags: 0
@@ -687,46 +750,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 1676124856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53550646c472456cbdb73229c9b8137e, type: 3}
+  m_Script: {fileID: 11500000, guid: c10d422b52559da41aa9676770a8fc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _from:
-    _mode: 0
-    _value: 0
-    _callback:
-      _target: {fileID: 0}
-      _methodName: 
-      _args: []
-      _dynamic: 0
-      _typeName: SerializableCallback.SerializableCallback`1[[System.Single, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Siccity.SerializableCallback,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      dirty: 0
-  _to:
-    _mode: 0
-    _value: 3.51
-    _callback:
-      _target: {fileID: 0}
-      _methodName: 
-      _args: []
-      _dynamic: 0
-      _typeName: SerializableCallback.SerializableCallback`1[[System.Single, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Siccity.SerializableCallback,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      dirty: 0
-  _nested:
-    _nestedValue:
-      _mode: 0
-      _value: 0
-      _callback:
-        _target: {fileID: 0}
-        _methodName: 
-        _args: []
-        _dynamic: 0
-        _typeName: SerializableCallback.SerializableCallback`1[[System.Single, mscorlib,
-          Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], Siccity.SerializableCallback,
-          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-        dirty: 0
+  animationSteps:
+  - rid: 1904655598951333888
+  updateType: 0
+  timeScaleIndependent: 0
+  autoplayMode: 0
+  startPaused: 0
+  playbackSpeed: 1
+  playType: 0
+  loops: 0
+  loopType: 0
+  autoKill: 1
+  onStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinishedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onProgressEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  progress: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 1904655598951333888
+      type: {class: DOTweenAnimationStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 1676124856}
+        duration: 1
+        loopCount: 0
+        loopType: 0
+        actions:
+        - rid: 1904655598951333889
+    - rid: 1904655598951333889
+      type: {class: SpriteFadeAction, ns: AnimatorSequencerExtensions.Actions, asm: com.facticus.animator-sequencer-extensions}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        _alpha: 0
 --- !u!1 &1781260404
 GameObject:
   m_ObjectHideFlags: 0
