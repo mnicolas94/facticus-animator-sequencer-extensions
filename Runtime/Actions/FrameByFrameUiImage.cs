@@ -35,6 +35,7 @@ namespace AnimatorSequencerExtensions.Actions
                 value =>
                     {
                         int index = (int)(_sprites.Count * value);
+                        index = Mathf.Clamp(index, 0, _sprites.Count - 1);
                         var sprite = _sprites[index];
                         _target.sprite = sprite;
                     },
