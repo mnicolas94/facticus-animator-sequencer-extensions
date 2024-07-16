@@ -14,7 +14,9 @@ namespace AnimatorSequencerExtensions.Actions
         public override string DisplayName => $"TMP Text {typeof(T).Name}";
 
         [SerializeField] protected T _initialValue;
+        [SerializeField] protected SerializableValueCallback<T> _initialValueGetter;
         [SerializeField] protected SerializableValueCallback<T> _targetValueGetter;
+        [SerializeField] protected string _format;
 
         protected TMP_Text _tmpTextComponent;
         protected string _previousText;
@@ -38,6 +40,16 @@ namespace AnimatorSequencerExtensions.Actions
             return tween;
         }
 
+        protected virtual string GetText(T value)
+        {
+            if (!string.IsNullOrEmpty(_format))
+            {
+                return string.Format(_format, value);
+            }
+
+            return $"{value}";
+        }
+        
         protected abstract Tweener GetTween(float duration);
 
         public override void ResetToInitialState()
@@ -59,7 +71,7 @@ namespace AnimatorSequencerExtensions.Actions
         {
             var tween = DOTween.To(
                 () => _initialValue,
-                val => _tmpTextComponent.text = $"{val}",
+                val => _tmpTextComponent.text = GetText(val),
                 _targetValueGetter.Value,
                 duration);
             return tween;
@@ -73,7 +85,7 @@ namespace AnimatorSequencerExtensions.Actions
         {
             var tween = DOTween.To(
                 () => _initialValue,
-                val => _tmpTextComponent.text = $"{val}",
+                val => _tmpTextComponent.text = GetText(val),
                 _targetValueGetter.Value,
                 duration);
             return tween;
@@ -87,7 +99,7 @@ namespace AnimatorSequencerExtensions.Actions
         {
             var tween = DOTween.To(
                 () => _initialValue,
-                val => _tmpTextComponent.text = $"{val}",
+                val => _tmpTextComponent.text = GetText(val),
                 _targetValueGetter.Value,
                 duration);
             return tween;
