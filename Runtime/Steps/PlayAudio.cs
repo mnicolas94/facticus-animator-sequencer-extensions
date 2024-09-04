@@ -26,6 +26,10 @@ namespace AnimatorSequencerExtensions.Steps
                 _audioSource.Play();
             });
             sequence.AppendInterval(_audioClip.length);
+            sequence.AppendCallback(() =>
+            {
+                _audioSource.Stop();
+            });
             
             if (FlowType == FlowType.Join)
                 animationSequence.Join(sequence);
