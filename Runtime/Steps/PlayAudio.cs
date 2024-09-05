@@ -24,11 +24,19 @@ namespace AnimatorSequencerExtensions.Steps
                 _audioSource.Stop();
                 _audioSource.clip = _audioClip;
                 _audioSource.Play();
+                
+                // register listeners
+                sequence.onPause += _audioSource.Pause;
+                sequence.onPlay += _audioSource.Play;
             });
             sequence.AppendInterval(_audioClip.length);
             sequence.AppendCallback(() =>
             {
                 _audioSource.Stop();
+                
+                // unregister listeners
+                sequence.onPause -= _audioSource.Pause;
+                sequence.onPlay -= _audioSource.Play;
             });
             
             if (FlowType == FlowType.Join)
