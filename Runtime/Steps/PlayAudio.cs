@@ -12,6 +12,7 @@ namespace AnimatorSequencerExtensions.Steps
         
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip _audioClip;
+        [SerializeField] private bool _timeScaleIndependent;
 
         public override void AddTweenToSequence(Sequence animationSequence)
         {
@@ -24,19 +25,20 @@ namespace AnimatorSequencerExtensions.Steps
                 _audioSource.Stop();
                 _audioSource.clip = _audioClip;
                 _audioSource.Play();
-                
-                // register listeners
-                sequence.onPause += _audioSource.Pause;
-                sequence.onPlay += _audioSource.Play;
             });
-            sequence.AppendInterval(_audioClip.length);
+            var tween = DOTween.To(
+                () => 0f,
+                _ =>
+                {
+                    if (_timeScaleIndependent) _audioSource.pitch = Time.timeScale * animationSequence.timeScale;
+                },
+                1f,
+                _audioClip.length
+            );
+            sequence.Append(tween);
             sequence.AppendCallback(() =>
             {
                 _audioSource.Stop();
-                
-                // unregister listeners
-                sequence.onPause -= _audioSource.Pause;
-                sequence.onPlay -= _audioSource.Play;
             });
             
             if (FlowType == FlowType.Join)
