@@ -30,7 +30,7 @@ namespace AnimatorSequencerExtensions.Steps
                 () => 0f,
                 _ =>
                 {
-                    if (_timeScaleIndependent) _audioSource.pitch = Time.timeScale * animationSequence.timeScale;
+                    if (!_timeScaleIndependent) _audioSource.pitch = Time.timeScale * animationSequence.timeScale;
                 },
                 1f,
                 _audioClip.length
