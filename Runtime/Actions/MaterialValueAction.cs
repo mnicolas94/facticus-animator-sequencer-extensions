@@ -13,6 +13,8 @@ namespace AnimatorSequencerExtensions.Actions
 
         public override Type TargetComponentType => typeof(Renderer);
 
+        enum MaterialType { Shared, Instance}
+        [SerializeField] private MaterialType _materialType = MaterialType.Shared;
         [SerializeField] private SerializableValueCallback<float> _value;
         [SerializeField] private string _variableName;
         
@@ -22,7 +24,11 @@ namespace AnimatorSequencerExtensions.Actions
         protected override Tweener GenerateTween_Internal(GameObject target, float duration)
         {
             var sr = target.GetComponent<Renderer>();
-            var material = sr.material;
+#if UNITY_EDITOR
+            var material = sr.sharedMaterial;
+#else
+            var material = _materialType == MaterialType.Shared ? sr.sharedMaterial : sr.material;
+#endif
             
             _previousTarget = material;
             _previousState = material.GetFloat(_variableName);
